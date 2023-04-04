@@ -32,7 +32,7 @@ ENV PATH=/opt/terraform:${PATH}
 #    Be sure to add all the providers you use in your templates to /opt/terraform/plugins
 
 RUN mkdir -p /opt/terraform/plugins
-#ADD filesystem-mirror-example.tfrc /opt/terraform/config.tfrc
+ADD filesystem-mirror-example.tfrc /opt/terraform/config.tfrc
 
 # Optionally, we can "seed" the filesystem mirror with common providers.
 # Comment out lines 40-49 if you plan on only using a volume or network mirror:
