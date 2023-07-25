@@ -13,7 +13,7 @@ RUN mkdir -p /opt/terraform
 # The below step is optional if you wish to keep the existing version.
 # See https://github.com/coder/coder/blob/main/provisioner/terraform/install.go#L23-L24
 # for supported Terraform versions.
-ARG TERRAFORM_VERSION=1.3.9
+ARG TERRAFORM_VERSION=1.5.3
 RUN apk update && \
     apk del terraform && \
     curl -LOs https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip \
@@ -38,19 +38,19 @@ ADD filesystem-mirror-example.tfrc /opt/terraform/config.tfrc
 # Comment out lines 40-49 if you plan on only using a volume or network mirror:
 RUN mkdir -p /opt/terraform/plugins/registry.terraform.io
 WORKDIR /opt/terraform/plugins/registry.terraform.io
-ARG CODER_PROVIDER_VERSION=0.6.10
+ARG CODER_PROVIDER_VERSION=0.11.1
 RUN echo "Adding coder/coder v${CODER_PROVIDER_VERSION}" \
     && mkdir -p coder/coder && cd coder/coder \
     && curl -LOs https://github.com/coder/terraform-provider-coder/releases/download/v${CODER_PROVIDER_VERSION}/terraform-provider-coder_${CODER_PROVIDER_VERSION}_linux_amd64.zip
-ARG DOCKER_PROVIDER_VERSION=3.0.1
+ARG DOCKER_PROVIDER_VERSION=3.0.2
 RUN echo "Adding kreuzwerker/docker v${DOCKER_PROVIDER_VERSION}" \
     && mkdir -p kreuzwerker/docker && cd kreuzwerker/docker \
     && curl -LOs https://github.com/kreuzwerker/terraform-provider-docker/releases/download/v${DOCKER_PROVIDER_VERSION}/terraform-provider-docker_${DOCKER_PROVIDER_VERSION}_linux_amd64.zip
-ARG KUBERNETES_PROVIDER_VERSION=2.18.1
+ARG KUBERNETES_PROVIDER_VERSION=2.22.1
 RUN echo "Adding kubernetes/kubernetes v${KUBERNETES_PROVIDER_VERSION}" \
     && mkdir -p kubernetes/kubernetes && cd kubernetes/kubernetes \
     && curl -LOs https://releases.hashicorp.com/terraform-provider-kubernetes/${KUBERNETES_PROVIDER_VERSION}/terraform-provider-kubernetes_${KUBERNETES_PROVIDER_VERSION}_linux_amd64.zip
-ARG AWS_PROVIDER_VERSION=4.59.0
+ARG AWS_PROVIDER_VERSION=5.9.0
 RUN echo "Adding aws/aws v${AWS_PROVIDER_VERSION}" \
     && mkdir -p aws/aws && cd aws/aws \
     && curl -LOs https://releases.hashicorp.com/terraform-provider-aws/${AWS_PROVIDER_VERSION}/terraform-provider-aws_${AWS_PROVIDER_VERSION}_linux_amd64.zip
