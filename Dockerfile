@@ -53,7 +53,11 @@ ARG AWS_PROVIDER_VERSION=5.19.0
 RUN echo "Adding aws/aws v${AWS_PROVIDER_VERSION}" \
     && mkdir -p aws/aws && cd aws/aws \
     && curl -LOs https://releases.hashicorp.com/terraform-provider-aws/${AWS_PROVIDER_VERSION}/terraform-provider-aws_${AWS_PROVIDER_VERSION}_linux_amd64.zip
-
+ARG OPENSTACK_PROVIDER_VERSION=1.54.1
+RUN echo "Adding openstack/openstack v${OPENSTACK_PROVIDER_VERSION}" \
+    && mkdir -p openstack/openstack && cd openstack/openstack \
+    && curl -LOs https://releases.hashicorp.com/terraform-provider-openstack/${OPENSTACK_PROVIDER_VERSION}/terraform-provider-openstack_${OPENSTACK_PROVIDER_VERSION}_linux_amd64.zip
+    
 RUN chown -R coder:coder /opt/terraform/plugins
 WORKDIR /home/coder
 
