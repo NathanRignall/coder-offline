@@ -21,7 +21,16 @@ RUN apk update && \
     && rm terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 ENV PATH=/opt/terraform:${PATH}
 
-# Use a filesystem mirror.
+# Additionally, a Terraform mirror needs to be configured
+# to download the Terraform providers used in Coder templates.
+# There are two options:
+
+# Option 1) Use a filesystem mirror.
+#  We can seed this at build-time or by mounting a volume to
+#  /opt/terraform/plugins in the container.
+#  https://developer.hashicorp.com/terraform/cli/config/config-file#filesystem_mirror
+#  Be sure to add all the providers you use in your templates to /opt/terraform/plugins
+
 RUN mkdir -p /home/coder/.terraform.d/plugins/registry.terraform.io
 ADD filesystem-mirror-example.tfrc /home/coder/.terraformrc
 
@@ -48,9 +57,16 @@ ARG OPENSTACK_PROVIDER_VERSION=1.54.1
 RUN echo "Adding openstack/openstack v${OPENSTACK_PROVIDER_VERSION}" \
     && mkdir -p openstack/openstack && cd openstack/openstack \
     && curl -LOs https://releases.hashicorp.com/terraform-provider-openstack/${OPENSTACK_PROVIDER_VERSION}/terraform-provider-openstack_${OPENSTACK_PROVIDER_VERSION}_linux_amd64.zip
-    
+
 RUN chown -R coder:coder /home/coder/.terraform*
 WORKDIR /home/coder
+
+# Option 2) Use a network mirror.
+#  https://developer.hashicorp.com/terraform/cli/config/config-file#network_mirror
+#  Be sure uncomment line 60 and edit network-mirror-example.tfrc to
+#  specify the HTTPS base URL of your mirror.
+
+# ADD network-mirror-example.tfrc /home/coder/.terraformrc
 
 USER coder
 
