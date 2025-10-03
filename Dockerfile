@@ -2,7 +2,7 @@ FROM ghcr.io/coder/coder:latest
 
 USER root
 
-RUN apk add curl unzip
+RUN apk add curl unzip ca-certificates
 
 # Create directory for the Terraform CLI (and assets)
 RUN mkdir -p /opt/terraform
