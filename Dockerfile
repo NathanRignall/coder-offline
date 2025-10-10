@@ -56,7 +56,7 @@ RUN echo "Adding openstack/openstack v${OPENSTACK_PROVIDER_VERSION}" \
 ARG ENVBUILDER_PROVIDER_VERSION=1.0.0
 RUN echo "Adding coder/envbuilder v${ENVBUILDER_PROVIDER_VERSION}" \
     && mkdir -p coder/envbuilder && cd coder/envbuilder \
-    && curl -LOs https://github.com/coder/terraform-provider-envbuilder/releases/download/v${ENVBUILDER_PROVIDER_VERSION}/terraform-provider-envbuilder_${CODER_PROVIDER_VERSION}_linux_amd64.zip
+    && curl -LOs https://github.com/coder/terraform-provider-envbuilder/releases/download/v${ENVBUILDER_PROVIDER_VERSION}/terraform-provider-envbuilder_${ENVBUILDER_PROVIDER_VERSION}_linux_amd64.zip
 
 RUN chown -R coder:coder /home/coder/.terraform*
 WORKDIR /home/coder
