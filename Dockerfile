@@ -53,6 +53,10 @@ ARG OPENSTACK_PROVIDER_VERSION=1.54.1
 RUN echo "Adding openstack/openstack v${OPENSTACK_PROVIDER_VERSION}" \
     && mkdir -p openstack/openstack && cd openstack/openstack \
     && curl -LOs https://releases.hashicorp.com/terraform-provider-openstack/${OPENSTACK_PROVIDER_VERSION}/terraform-provider-openstack_${OPENSTACK_PROVIDER_VERSION}_linux_amd64.zip
+ARG ENVBUILDER_PROVIDER_VERSION=1.0.0
+RUN echo "Adding coder/envbuilder v${ENVBUILDER_PROVIDER_VERSION}" \
+    && mkdir -p coder/envbuilder && cd coder/envbuilder \
+    && curl -LOs https://github.com/coder/terraform-provider-envbuilder/releases/download/v${ENVBUILDER_PROVIDER_VERSION}/terraform-provider-envbuilder_${CODER_PROVIDER_VERSION}_linux_amd64.zip
 
 RUN chown -R coder:coder /home/coder/.terraform*
 WORKDIR /home/coder
